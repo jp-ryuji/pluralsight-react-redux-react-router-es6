@@ -17,6 +17,17 @@ export class ManageCoursePage extends React.Component {
     this.saveCourse = this.saveCourse.bind(this);
   }
 
+  // NOTE: The function may run sometimes even when props haven't changed.
+  //   That's because sometimes React can't tell for sure if props have changed.
+  //   So it runs this function for safety.
+  //   That's why there's the `if` claues to make sure if the course's id changed.
+  componentWillReceiveProps(nextProps) {
+    if (this.props.course.id !== nextProps.course.id) {
+      // Necessary to populate form when existing course is loaded directly.
+      this.setState({course: Object.assign({}, nextProps.course)});
+    }
+  }
+
   updateCourseState(event) {
     const field = event.target.name;
     let course = Object.assign({}, this.state.course);
