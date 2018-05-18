@@ -11,6 +11,8 @@ function setup(saving) {
     onChange: () => {}
   };
 
+  // NOTE: `shallow` only renders one layer deep. Whereas, with mount, a full DOM is created in memory.
+  //   Enzyme is using JSDOM to create a virtual in-memory DOM.
   return shallow(<CourseForm {...props} />);
 }
 
